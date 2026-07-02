@@ -112,37 +112,128 @@ nav .links a.active {
 }
 
 /* ==========================================================================
-   HERO (index page)
-   The faint concentric rings are a nod to contour plots / iso-lines —
-   a quiet visual reference to optimization and inverse-problem work.
-   Tweak or delete the background-image line to remove it.
+   HERO (index page only) — full-bleed video, dark overlay, light text.
+   This is the site's one dramatic moment; every other page stays in the
+   quiet paper theme above. The dark colors below are local to this
+   header only (defined again as CSS variables inside .hero-video) so
+   they don't leak into the rest of the site.
    ========================================================================== */
-.hero {
-  padding: 5rem 0 4rem 0;
-  background-image:
-    radial-gradient(circle at 85% 20%, transparent 0 60px, var(--line) 61px, transparent 62px),
-    radial-gradient(circle at 85% 20%, transparent 0 110px, var(--line) 111px, transparent 112px),
-    radial-gradient(circle at 85% 20%, transparent 0 160px, var(--line) 161px, transparent 162px);
-  background-repeat: no-repeat;
+.hero-video {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  /* Static hero image for now. Swap this path for your own still — a
+     good frame from one of your black hole renders works well.
+     When you add a video later (see README), this becomes the poster
+     fallback and this line can stay as-is. */
+  background-image: url("assets/hero-poster.jpg");
+  background-size: cover;
+  background-position: center;
+
+  /* Local color overrides for this section only */
+  --hero-ink: #F5F5F2;
+  --hero-muted: rgba(245, 245, 242, 0.72);
 }
 
-.hero h1 {
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  max-width: 14ch;
+/* Darkens the video so white text stays readable everywhere on it.
+   Adjust the rgba alpha values to taste — higher = darker/more legible,
+   lower = more of the video shows through. */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(8, 10, 16, 0.55) 0%, rgba(8, 10, 16, 0.35) 45%, rgba(8, 10, 16, 0.8) 100%);
 }
 
-.hero .lede {
-  font-size: 1.15rem;
-  color: var(--muted);
+.hero-nav {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-nav .site-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--hero-ink);
+}
+
+.hero-nav .links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.hero-nav .links a {
+  color: var(--hero-muted);
+}
+
+.hero-nav .links a:hover,
+.hero-nav .links a.active {
+  color: var(--hero-ink);
+}
+
+.hero-nav .links a.active {
+  border-bottom: 1px solid var(--signal);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--hero-ink);
+}
+
+.hero-content .eyebrow {
+  color: var(--hero-muted);
+}
+
+.hero-content h1 {
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  max-width: 16ch;
+  color: var(--hero-ink);
+}
+
+.hero-content .lede {
+  font-size: 1.2rem;
+  color: var(--hero-muted);
   max-width: 46ch;
 }
 
-.hero .cta-row {
+.hero-content .cta-row {
   display: flex;
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
   font-family: var(--font-mono);
   font-size: 0.9rem;
+}
+
+.hero-content .cta-row a {
+  color: var(--hero-ink);
+  border-bottom: 1px solid var(--hero-muted);
+  padding-bottom: 2px;
+}
+
+.hero-content .cta-row a:hover {
+  border-color: var(--hero-ink);
+  text-decoration: none;
 }
 
 /* ==========================================================================
@@ -294,6 +385,6 @@ footer {
    RESPONSIVE
    ========================================================================== */
 @media (max-width: 600px) {
-  .hero { padding: 3rem 0 2.5rem 0; background-image: none; }
+  .hero-video { height: 85vh; min-height: 480px; }
   .project { padding: 1.5rem; }
 }
