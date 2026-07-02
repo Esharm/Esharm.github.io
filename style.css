@@ -1,0 +1,299 @@
+/* ==========================================================================
+   DESIGN TOKENS
+   Change colors, fonts, and spacing here — everything else on the site
+   references these variables, so editing this block restyles every page.
+   ========================================================================== */
+:root {
+  /* Color */
+  --bg:      #F7F7F4;  /* page background — warm paper gray */
+  --ink:     #1B1F27;  /* primary text */
+  --muted:   #5B6270;  /* secondary text (dates, captions, nav) */
+  --line:    #DADDD3;  /* hairline rules / borders */
+  --card:    #FFFFFF;  /* project card background */
+  --accent:  #2D4B8E;  /* links, headings accents — cobalt blue */
+  --signal:  #C9622B;  /* rare highlight color — status tags, one accent per page */
+
+  /* Type */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body:    "IBM Plex Sans", -apple-system, sans-serif;
+  --font-mono:    "IBM Plex Mono", "Courier New", monospace;
+
+  /* Layout */
+  --max-width: 780px;
+  --gap: 2rem;
+}
+
+/* ==========================================================================
+   RESET / BASE
+   ========================================================================== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.5em 0;
+}
+
+p { margin: 0 0 1em 0; }
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Small uppercase mono label — used for section eyebrows and status tags */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   NAV
+   ========================================================================== */
+nav {
+  border-bottom: 1px solid var(--line);
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+nav .site-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+
+nav .links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+nav .links a {
+  color: var(--muted);
+}
+
+nav .links a:hover,
+nav .links a.active {
+  color: var(--ink);
+}
+
+nav .links a.active {
+  border-bottom: 1px solid var(--signal);
+}
+
+/* ==========================================================================
+   HERO (index page)
+   The faint concentric rings are a nod to contour plots / iso-lines —
+   a quiet visual reference to optimization and inverse-problem work.
+   Tweak or delete the background-image line to remove it.
+   ========================================================================== */
+.hero {
+  padding: 5rem 0 4rem 0;
+  background-image:
+    radial-gradient(circle at 85% 20%, transparent 0 60px, var(--line) 61px, transparent 62px),
+    radial-gradient(circle at 85% 20%, transparent 0 110px, var(--line) 111px, transparent 112px),
+    radial-gradient(circle at 85% 20%, transparent 0 160px, var(--line) 161px, transparent 162px);
+  background-repeat: no-repeat;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  max-width: 14ch;
+}
+
+.hero .lede {
+  font-size: 1.15rem;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.hero .cta-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   SECTIONS / GENERIC PAGE HEADER
+   ========================================================================== */
+.page-header {
+  padding: 3.5rem 0 2rem 0;
+}
+
+.page-header h1 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+}
+
+section {
+  padding: 2rem 0;
+}
+
+section + section {
+  border-top: 1px solid var(--line);
+}
+
+/* ==========================================================================
+   PROJECT CARDS
+   ========================================================================== */
+.project {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.project-header h2 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.status-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.status-tag.done {
+  color: var(--accent);
+  background: rgba(45, 75, 142, 0.08);
+}
+
+.status-tag.in-progress {
+  color: var(--signal);
+  background: rgba(201, 98, 43, 0.1);
+}
+
+.project-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.project dt {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 1.1rem;
+}
+
+.project dd {
+  margin: 0.3rem 0 0 0;
+}
+
+.project .links {
+  margin-top: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   FREELANCE PAGE
+   ========================================================================== */
+.services {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.services li {
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.services li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.services .service-name {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.note-card {
+  background: var(--card);
+  border-left: 3px solid var(--signal);
+  padding: 1.25rem 1.5rem;
+  margin: 2rem 0;
+}
+
+.contact-box {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.contact-box a.email {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: 3rem;
+  padding: 2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 600px) {
+  .hero { padding: 3rem 0 2.5rem 0; background-image: none; }
+  .project { padding: 1.5rem; }
+}
